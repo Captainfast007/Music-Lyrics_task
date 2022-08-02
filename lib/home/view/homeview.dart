@@ -38,7 +38,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               },
             );
           } else {
-            return const Center(child: Text("Error"));
+            return const Center(child: Text("Error",style: TextStyle(fontSize: 50.0),));
           }
         },
       ),

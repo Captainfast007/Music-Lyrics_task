@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_task/data/music.dart';
 
@@ -13,7 +15,10 @@ class ServiceClass {
   Future<TrackList> getTracks() async {
     const String url = "$_baseUrl/chart.tracks.get?apikey=$_apiKey";
     final response = await _dio.get(url);
-    return TrackList.fromJson(response.data['message']['body']);
+    final Map<String, dynamic> data = jsonDecode(response.data);
+    final message = (data)['message'];
+    final body = (message as Map<String, dynamic>)['body'];
+    return TrackList.fromJson(body);
   }
 
   Future<Track> getParticularTrack(String trackId) async {
