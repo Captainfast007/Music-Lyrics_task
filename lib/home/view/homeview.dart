@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_task/DetailsPage/view/detailsView.dart';
 import 'package:flutter_task/data/track.dart';
 import 'package:flutter_task/provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -34,11 +35,30 @@ class _HomePageState extends ConsumerState<HomePage> {
             return ListView.builder(
               itemCount: state.tracks.trackList!.length,
               itemBuilder: (context, index) {
-                return TrackCard(track: state.tracks.trackList![index].track!);
+                return GestureDetector(
+                  child:
+                      TrackCard(track: state.tracks.trackList![index].track!),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (c) => DetailsPage(
+                            state.tracks.trackList![index].track?.trackId,
+                            state.tracks.trackList![index].track?.trackName,
+                            state.tracks.trackList![index].track?.albumName,
+                            state.tracks.trackList![index].track?.trackRating,
+                            state.tracks.trackList![index].track?.artistName),
+                      ),
+                    );
+                  },
+                );
               },
             );
           } else {
-            return const Center(child: Text("Error",style: TextStyle(fontSize: 50.0),));
+            return const Center(
+                child: Text(
+              "Error",
+              style: TextStyle(fontSize: 50.0),
+            ));
           }
         },
       ),

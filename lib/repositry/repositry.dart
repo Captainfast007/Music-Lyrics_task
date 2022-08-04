@@ -19,7 +19,7 @@ class Repositry {
     }
   }
 
-  Future<Either<String, Track>> getParticularTrack(String trackId) async {
+  Future<Either<String, Track>> getParticularTrack(int trackId) async {
     try {
       final Track track = await _serviceClass.getParticularTrack(trackId);
       return Right(track);
@@ -28,7 +28,7 @@ class Repositry {
     }
   }
 
-  Future<Either<String, Lyrics>> getLyricsOfTrack(String trackId) async {
+  Future<Either<String, Lyrics>> getLyricsOfTrack(int trackId) async {
     try {
       final Lyrics lyrics = await _serviceClass.getLyricsOfTrack(trackId);
       return Right(lyrics);

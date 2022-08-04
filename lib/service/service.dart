@@ -21,16 +21,19 @@ class ServiceClass {
     return TrackList.fromJson(body);
   }
 
-  Future<Track> getParticularTrack(String trackId) async {
+  Future<Track> getParticularTrack(int trackId) async {
     final String url = "$_baseUrl/track.get?track_id=$trackId&apikey=$_apiKey";
     final Response response = await _dio.get(url);
     return Track.fromJson(response.data['message']['body']);
   }
 
-  Future<Lyrics> getLyricsOfTrack(String trackId) async {
+  Future<Lyrics> getLyricsOfTrack(int trackId) async {
     final String url =
         "$_baseUrl/track.lyrics.get?track_id=$trackId&apikey=$_apiKey";
-    final Response response = await _dio.get(url);
-    return Lyrics.fromJson(response.data['message']['body']['lyrics']);
+    final response = await _dio.get(url);
+    final Map<String, dynamic> data = jsonDecode(response.data);
+    final message = (data)['message'];
+    final body = (message as Map<String, dynamic>)['body'];
+    return Lyrics.fromJson(body['lyrics']);
   }
 }

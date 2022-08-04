@@ -6,9 +6,9 @@ abstract class DetailsState {}
 class DetailsLoading extends DetailsState {}
 
 class DetailsLoaded extends DetailsState {
-  final TrackList tracks;
+  final Lyrics lyrics;
 
-  DetailsLoaded(this.tracks);
+  DetailsLoaded(this.lyrics);
 }
 
 class DetailsError extends DetailsState {
